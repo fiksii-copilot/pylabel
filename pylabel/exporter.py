@@ -608,11 +608,7 @@ class Export:
         unique_images = yolo_dataset["img_filename"].unique()
         output_file_paths = []
         pbar = tqdm(desc="Exporting YOLO files...", total=len(unique_images))
-        for img_filename in unique_images:
-            df_single_img_annots = yolo_dataset.loc[
-                yolo_dataset.img_filename == img_filename
-            ]
-
+        for img_filename, df_single_img_annots in yolo_dataset.groupby("img_filename"):
             basename, _ = os.path.splitext(img_filename)
             annot_txt_file = basename + ".txt"
             # Use the value of the split collumn to create a directory
