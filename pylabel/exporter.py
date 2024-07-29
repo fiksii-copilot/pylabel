@@ -611,7 +611,7 @@ class Export:
         for img_filename, df_single_img_annots in yolo_dataset.groupby("img_filename"):
             basename, _ = os.path.splitext(img_filename)
             annot_txt_file = basename + ".txt"
-            # Use the value of the split collumn to create a directory
+            # Use the value of the split column to create a directory
             # The values should be train, val, test or ''
             if use_splits:
                 split_dir = df_single_img_annots.iloc[0].split
@@ -624,7 +624,7 @@ class Export:
             ).mkdir(parents=True, exist_ok=True)
 
             # If segmentation = false then output bounding boxes
-            if segmentation == False:
+            if not segmentation:
                 columns = [
                     "cat_id",
                     "center_x_scaled",
